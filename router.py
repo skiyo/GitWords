@@ -6,6 +6,7 @@ import handler
 
 controller = [
 	(r"/", handler.IndexHandler),
+	(r"/github/oauth", handler.GithubOauthHandler),
+	(r"/github/callback", handler.GithubCallbackHandler),
+	(r".*", handler.PageNotFoundHandler),
 ]
-
-tornado.web.ErrorHandler = handler.PageNotFoundHandler

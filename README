@@ -1,1 +1,8 @@
 Gitwords - Blog for geekers
+
+
+depend:
+tornado (3.2)
+MySQL-python (1.2.5)
+requests (2.2.1)
+py-oauth2 (0.0.8)
