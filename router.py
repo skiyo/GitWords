@@ -1,11 +1,11 @@
 # -*- coding:utf8 -*-
 
-import action
 import tornado.web
 import conf
+import handler
 
 controller = [
-	(r"/", IndexHandler),
-
-	(r"/static/(.*)", tornado.web.StaticFileHandler, {"path": conf.path.static}),
+	(r"/", handler.IndexHandler),
 ]
+
+tornado.web.ErrorHandler = handler.PageNotFoundHandler
