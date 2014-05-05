@@ -2,7 +2,7 @@
 import tornado.web
 from pyoauth2 import Client
 import conf
-import model.github import Github
+from model.github import Github
 
 class IndexHandler(tornado.web.RequestHandler):
 	def get(self):
@@ -12,10 +12,16 @@ class IndexHandler(tornado.web.RequestHandler):
 
 class GithubOauthHandler(tornado.web.RequestHandler):
 	def get(self):
-		#self.redirect(client.auth_code.authorize_url(scope = conf.github.app.scope))
+		g = Github()
+		self.redirect(g.authorize())
 
 class GithubCallbackHandler(tornado.web.RequestHandler):
 	def get(self):
+		g = Github()
+		g.set_code(self.get_argument('code'))
+		user = g.get_user_info()
+		self.set_secure_cookie('u', user['login'])
+		"""
 		client = Client(conf.github.app.client_id, conf.github.app.client_secret, 
 			authorize_url = conf.github.api.authorize_url, 
 			token_url = conf.github.api.access_token_url)
@@ -23,6 +29,7 @@ class GithubCallbackHandler(tornado.web.RequestHandler):
 		print 'token', access_token.headers
 		ret = access_token.get('https://api.github.com/user')
 		print ret.parsed
+		"""
 
 
 class PageNotFoundHandler(tornado.web.RequestHandler):

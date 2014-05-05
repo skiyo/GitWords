@@ -12,3 +12,10 @@ class Github:
 
 	def authorize(self):
 		return self.client.auth_code.authorize_url(scope = conf.github.app.scope)
+
+	def set_code(self, code):
+		self.access_token = self.client.auth_code.get_token(code, parse = "query")
+
+	def get_user_info(self):
+		return self.access_token.get(conf.github.api.user_get_url).parsed
+

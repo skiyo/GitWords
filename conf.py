@@ -17,6 +17,9 @@ github.app.scope = 'user,public_repo,gist'
 github.api = Bag()
 github.api.authorize_url = 'https://github.com/login/oauth/authorize'
 github.api.access_token_url = 'https://github.com/login/oauth/access_token'
+github.api.user_get_url = 'https://api.github.com/user'
+github.api.repos_get_url = 'https://api.github.com/user/repos'
+github.api.repos_add_url = 'https://api.github.com/user/repos'
 
 tornado_settings = dict(
 	template_path = os.path.join(os.path.dirname(__file__), "templates"),
