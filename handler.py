@@ -6,7 +6,12 @@ from model.github import Github
 
 class IndexHandler(tornado.web.RequestHandler):
 	def get(self):
-		print "aaa"
+		g = Github('591ec9909c3330223cc4e988f61b0c5d4ee17800')
+		print g.get_user_info()
+		if self.get_secure_cookie('u'):
+			self.write(self.get_secure_cookie('u'))
+		else :
+			self.write('not login')
 		#self.render("home.html", entries=entries)
 
 
