@@ -36,18 +36,25 @@ class Github:
 			name = name, has_issues = False, has_wiki = False, 
 			has_downloads = False, headers = {'content-type' : 'application/json'}).parsed
 
+	def update_file(self, user, filename, content, sha):
+		return self.access_token.put(self._parse_api_url(conf.github.api.create_file, 
+			owner = user, repo = conf.gitwords.app.repos_name, path = filename), 
+			path = filename, message = conf.github.api.update_message, content = base64.b64encode(content),
+			branch = conf.github.api.branch, sha = sha, headers = {'content-type' : 'application/json'}).parsed
+
 	def create_file(self, user, filename, content):
 		return self.access_token.put(self._parse_api_url(conf.github.api.create_file, 
 			owner = user, repo = conf.gitwords.app.repos_name, path = filename), 
 			path = filename, message = conf.github.api.update_message, content = base64.b64encode(content),
 			branch = conf.github.api.branch, headers = {'content-type' : 'application/json'}).parsed
-		"""
-		return self.access_token.put('https://api.github.com/repos/skiyo/_gitwords/contents/CNAME', 
-			path = 'CNAME', message = 'message', content = base64.b64encode('blog-sample.verycoder.com'), 
-			branch = 'gh-pages', headers = {'content-type' : 'application/json'}).parsed
-		"""
+
+	def delete_file(self, user, filename, content, sha):
+		return self.access_token.delete(self._parse_api_url(conf.github.api.create_file, 
+			owner = user, repo = conf.gitwords.app.repos_name, path = filename), 
+			path = filename, message = conf.github.api.update_message, content = base64.b64encode(content),
+			branch = conf.github.api.branch, sha = sha, headers = {'content-type' : 'application/json'}).parsed
 
 	def _parse_api_url(self, url, **param):
 		for key in param:
-			url = url.replace(":%s" % k, str(opts[k]))
+			url = url.replace(":%s" % key, str(param[key]))
 		return url

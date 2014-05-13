@@ -9,7 +9,8 @@ class IndexHandler(tornado.web.RequestHandler):
 		g = Github('591ec9909c3330223cc4e988f61b0c5d4ee17800')
 		#print g.get_user_info()
 		#print g.check_repos()
-		print g.create_file()
+
+		print g.update_file('skiyo', 'test.html', "bbbb", 'f2ba8f84ab5c1bce84a7b441cb1959cfc7093b7f')
 		if self.get_secure_cookie('u'):
 			self.write(self.get_secure_cookie('u'))
 		else :
